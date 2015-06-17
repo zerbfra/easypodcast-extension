@@ -1,0 +1,35 @@
+
+<!DOCTYPE HTML>
+<script>
+// Register for the validate and command events.
+safari.application.addEventListener("command", performCommand, false);
+safari.application.addEventListener("validate", validateCommand, false);
+
+function performCommand(event)
+{
+	// You should always check the command.
+	if (event.command !== "easypodcast")
+		return;
+
+    
+    var tag = "easyp06-21";
+    var tabURL = event.target.browserWindow.activeTab.url;
+	var newURL;
+	if (tabURL.indexOf("ref") > -1)
+		newURL = tabURL + "&tag=" + tag;
+	else newURL = tabURL + "?tag=" + tag;
+
+	if (tabURL)
+		event.target.browserWindow.activeTab.url = newURL;
+}
+
+function validateCommand(event)
+{
+	// You should always check the command.
+	if (event.command !== "easypodcast")
+		return;
+
+	// Disable the target if the current tab has no URL.
+	event.target.disabled = !event.target.browserWindow.activeTab.url;
+}
+</script>
